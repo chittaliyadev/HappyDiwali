@@ -8,12 +8,14 @@
   --deep: #6b2a0d;
   --white: #fffdf8;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; }
+button { touch-action: manipulation; }
 
 body {
   min-height: 100vh; min-height: 100dvh;
   display: grid; place-items: center;
-  padding: 40px 22px;
+  padding: max(40px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(40px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
   font-family: "Hind Vadodara", system-ui, sans-serif;
   color: var(--deep);
   background:
@@ -154,11 +156,54 @@ body.ready .wishes li:nth-child(3) { animation-delay: 2.1s; }
 .modal-box .gu { font-family: "Playfair Display", serif; color: var(--orange); font-size: 1.4rem; margin: 10px 0 20px; }
 @keyframes pop { from { opacity: 0; transform: scale(.6); } }
 
-/* ===== Responsive ===== */
-@media (max-width: 480px) {
-  .diya.side { transform: translateY(-50%) scale(.55); }
-  .btn { flex: 1 1 100%; }
+/* ===== Phones & small tablets ===== */
+@media (max-width: 600px) {
+  body { padding-top: max(30px, env(safe-area-inset-top)); padding-bottom: max(30px, env(safe-area-inset-bottom)); }
+
+  /* Reclaim the width the side diyas used to take; move them to the bottom corners */
+  .card { padding: 30px 20px 30px; border-radius: 26px; }
+  .diya.side { top: auto; bottom: 22px; transform: scale(.55); transform-origin: bottom center; }
+  .diya.left { left: 14px; }
+  .diya.right { right: 14px; }
+  .sign { min-height: 44px; }
+
+  .subtitle { margin-bottom: 12px; }
+  .greeting { margin-bottom: 16px; }
+  .wishes li { padding: 11px 14px; text-align: left; }
+
+  /* Large, thumb-friendly full-width buttons */
+  .actions { gap: 12px; }
+  .btn { flex: 1 1 100%; min-height: 50px; font-size: 1.05rem; }
+
+  .modal { align-items: end; padding: 12px max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+  .modal-box { padding: 26px 20px; border-radius: 26px; }
+  .diya.big { transform: scale(1.8); }
 }
+
+/* Very narrow phones */
+@media (max-width: 360px) {
+  .card { padding: 26px 16px; }
+  .btn { font-size: 1rem; }
+}
+
+/* Landscape phones: keep everything reachable without huge gaps */
+@media (max-height: 500px) and (orientation: landscape) {
+  body { place-items: start center; padding-top: 24px; }
+  .card { padding: 22px 70px 22px; }
+  .diya.side { top: 46%; bottom: auto; transform: translateY(-50%) scale(.6); }
+  .actions .btn { flex: 1 1 auto; min-height: 44px; }
+}
+
+/* Touch screens: no sticky hover effects */
+@media (hover: none) {
+  .btn:hover { transform: none; }
+  .wishes li:hover { box-shadow: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .card { background: linear-gradient(155deg, #fffdf8, #ffeccb); }
 }
