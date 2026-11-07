@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Diwali 🪔</title>
+  <meta property="og:title" content="Happy Diwali 🪔">
+  <meta property="og:description" content="Wishing you and your family a Diwali filled with happiness, prosperity, and endless smiles!">
+  <meta name="theme-color" content="#fff3d6">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Opening animation: a diya is lit, then the card is revealed -->
+  <div id="intro" aria-hidden="true">
+    <div class="diya big"><i class="flame"></i><i class="bowl"></i></div>
+    <p>Lighting the diya…</p>
+  </div>
+
+  <!-- Background effects: sparkles + fireworks -->
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <div class="stage">
+    <!-- Fairy lights are generated around the card by script.js -->
+    <div class="fairy" id="fairy" aria-hidden="true"></div>
+
+    <main class="card">
+      <!-- Animated diyas on both sides -->
+      <div class="diya side left" aria-hidden="true"><i class="flame"></i><i class="bowl"></i></div>
+      <div class="diya side right" aria-hidden="true"><i class="flame"></i><i class="bowl"></i></div>
+
+      <h1>Happy Diwali 🪔</h1>
+      <p class="subtitle">The Festival of Lights</p>
+
+      <p class="greeting">Wishing you and your family a Diwali filled with happiness, prosperity, and endless smiles!</p>
+
+      <ul class="wishes">
+        <li>May your life shine brighter than the Diwali lights.</li>
+        <li>May this festival bring new opportunities, success, and beautiful memories.</li>
+        <li>Stay happy, keep smiling, and spread positivity!</li>
+      </ul>
+
+      <p class="gujarati">May happiness, peace, and prosperity always be with you.</p>
+
+      <div class="actions">
+        <button id="surpriseBtn" class="btn primary">✨ Click for a Surprise ✨</button>
+        <button id="replayBtn" class="btn ghost">↻ Replay</button>
+      </div>
+
+      <footer class="sign">
+        <p class="love">With lots of love ❤️</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Surprise wish -->
+  <div id="surprise" class="modal" role="dialog" aria-modal="true" aria-labelledby="sTitle" hidden>
+    <div class="modal-box">
+      <h2 id="sTitle">🎆 A Special Wish 🎆</h2>
+      <p>May Goddess Lakshmi bless your home with light, love & laughter all year long.</p>
+      <p class="gu">Happy New Year! 🙏</p>
+      <button id="closeBtn" class="btn primary">Thank you 🪔</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

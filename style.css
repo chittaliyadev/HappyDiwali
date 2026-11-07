@@ -1,0 +1,164 @@
+/* ===== Design tokens ===== */
+:root {
+  --cream: #fff6e3;
+  --cream-2: #ffe9c2;
+  --saffron: #ff9933;
+  --orange: #f2701d;
+  --gold: #f5b82e;
+  --deep: #6b2a0d;
+  --white: #fffdf8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh; min-height: 100dvh;
+  display: grid; place-items: center;
+  padding: 40px 22px;
+  font-family: "Hind Vadodara", system-ui, sans-serif;
+  color: var(--deep);
+  background:
+    radial-gradient(circle at 50% -10%, #fff 0, transparent 55%),
+    radial-gradient(circle at 10% 95%, rgba(255,153,51,.30), transparent 45%),
+    radial-gradient(circle at 92% 85%, rgba(245,184,46,.35), transparent 45%),
+    var(--cream);
+  overflow-x: hidden;
+}
+
+/* ===== Canvas layer ===== */
+#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+
+/* ===== Stage + glass card ===== */
+.stage { position: relative; z-index: 3; width: min(620px, 100%); }
+
+.card {
+  position: relative;
+  padding: clamp(32px, 6vw, 52px) clamp(46px, 11vw, 92px) 28px;
+  text-align: center;
+  background: linear-gradient(155deg, rgba(255,255,255,.82), rgba(255,236,196,.62));
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);   /* subtle glassmorphism */
+  border: 1.5px solid rgba(255,255,255,.9);
+  border-radius: 30px;
+  box-shadow: 0 24px 60px rgba(242,112,29,.25), inset 0 0 40px rgba(255,205,100,.28);
+  opacity: 0; transform: translateY(26px) scale(.96);
+  transition: opacity 1s ease, transform 1s cubic-bezier(.2,.8,.2,1);
+}
+body.ready .card { opacity: 1; transform: none; }
+
+/* ===== Typography ===== */
+h1 {
+  font-family: "Playfair Display", serif; font-weight: 700;
+  font-size: clamp(2.3rem, 10vw, 3.8rem); line-height: 1.15;
+  background: linear-gradient(90deg, var(--orange), var(--gold), var(--orange));
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shine 4s linear infinite;
+}
+@keyframes shine { to { background-position: 200% center; } }
+
+.subtitle { font-family: "Playfair Display", serif; font-size: clamp(1.3rem, 5vw, 1.7rem); color: var(--orange); margin: 6px 0 16px; }
+.greeting { font-family: "Playfair Display", serif; font-style: italic; font-weight: 500; font-size: clamp(1.1rem, 4.2vw, 1.4rem); line-height: 1.55; margin-bottom: 20px; }
+
+.wishes { list-style: none; display: grid; gap: 10px; margin-bottom: 18px; }
+.wishes li {
+  padding: 10px 14px; font-size: clamp(.95rem, 3.6vw, 1.05rem); line-height: 1.55;
+  background: rgba(255,255,255,.72); border-left: 4px solid var(--saffron); border-radius: 12px;
+  opacity: 0; transform: translateX(-14px);
+  transition: transform .25s, box-shadow .25s;
+}
+.wishes li:hover { box-shadow: 0 6px 18px rgba(255,153,51,.3); }
+body.ready .wishes li { animation: slideIn .8s forwards; }
+body.ready .wishes li:nth-child(1) { animation-delay: .9s; }
+body.ready .wishes li:nth-child(2) { animation-delay: 1.5s; }
+body.ready .wishes li:nth-child(3) { animation-delay: 2.1s; }
+@keyframes slideIn { to { opacity: 1; transform: none; } }
+
+.gujarati { font-family: "Hind Vadodara", system-ui, sans-serif; font-weight: 600; color: var(--orange); line-height: 1.7; margin-bottom: 22px; }
+
+/* ===== Buttons ===== */
+.actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.btn {
+  font: inherit; font-weight: 600; cursor: pointer;
+  padding: 12px 20px; border-radius: 999px; border: 2px solid transparent;
+  transition: transform .2s, box-shadow .2s, background .2s;
+}
+.btn:hover { transform: translateY(-3px); }
+.btn:active { transform: scale(.96); }
+.btn:focus-visible { outline: 3px solid var(--deep); outline-offset: 3px; }
+.btn.primary { flex: 1 1 100%; color: #fff; background: linear-gradient(135deg, var(--saffron), var(--orange)); box-shadow: 0 6px 20px rgba(242,112,29,.45); animation: pulse 2.4s ease-in-out infinite; }
+.btn.ghost { color: var(--orange); background: rgba(255,255,255,.85); border-color: var(--saffron); }
+.btn.ghost:hover { background: #fff; }
+@keyframes pulse { 50% { box-shadow: 0 6px 32px rgba(245,184,46,.95); } }
+
+.sign { margin-top: 24px; }
+.love { font-family: "Playfair Display", serif; font-style: italic; font-size: 1.2rem; }
+.friend { font-family: "Playfair Display", serif; font-size: 1.35rem; color: var(--orange); margin-top: 4px; }
+
+/* ===== Fairy lights (bulbs placed by script.js) ===== */
+.fairy { position: absolute; inset: -9px; pointer-events: none; }
+.fairy span {
+  position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%;
+  background: var(--c); box-shadow: 0 0 8px 3px var(--c);
+  animation: twinkle 2.2s ease-in-out infinite;
+}
+@keyframes twinkle { 50% { opacity: .3; transform: scale(.7); } }
+
+/* ===== Diya (pure CSS) ===== */
+.diya { position: relative; width: 56px; height: 64px; }
+.diya .bowl {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 24px;
+  background: linear-gradient(#e0701a, #a8430b); border-radius: 4px 4px 56px 56px;
+  box-shadow: 0 0 22px 4px rgba(255,170,40,.55);
+}
+.diya .bowl::before { content: ""; position: absolute; top: 0; left: 8%; right: 8%; height: 6px; background: #ffd24d; border-radius: 50%; }
+.diya .flame {
+  position: absolute; bottom: 20px; left: 50%; width: 18px; height: 34px; margin-left: -9px;
+  background: radial-gradient(ellipse at 50% 75%, #fff6b0 0, #ffc533 45%, #ff7a1a 100%);
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  transform-origin: 50% 100%; filter: drop-shadow(0 0 12px #ffb02e);
+  animation: flicker 1.2s ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  0% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(.92, 1.08) rotate(2deg); }
+  100% { transform: scale(1.05, .95) rotate(-1deg); }
+}
+.diya.side { position: absolute; top: 46%; transform: translateY(-50%) scale(.8); }
+.diya.left { left: clamp(8px, 3vw, 22px); }
+.diya.right { right: clamp(8px, 3vw, 22px); }
+.diya.right .flame { animation-delay: .4s; }
+.diya.big { transform: scale(2.2); margin-bottom: 44px; }
+
+/* ===== Opening overlay (replayable via .play) ===== */
+#intro {
+  position: fixed; inset: 0; z-index: 10; display: grid; place-content: center; justify-items: center;
+  background: radial-gradient(circle, #fff3cf, var(--cream-2));
+  transition: opacity 1s ease, visibility 1s;
+}
+#intro p { font-family: "Playfair Display", serif; font-style: italic; font-size: 1.4rem; color: var(--orange); }
+#intro.play p { animation: fadeUp 1.4s .4s both; }
+#intro.play .flame { animation: ignite 1.4s ease-out both, flicker 1.2s 1.4s ease-in-out infinite alternate; }
+@keyframes ignite { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } }
+#intro.hide { opacity: 0; visibility: hidden; }
+
+/* ===== Surprise modal ===== */
+.modal { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 16px; background: rgba(107,42,13,.32); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.modal[hidden] { display: none; }
+.modal-box {
+  width: min(420px, 100%); text-align: center; padding: 30px 24px;
+  background: linear-gradient(160deg, #fff, #ffe9b8); border: 2px solid var(--gold); border-radius: 26px;
+  box-shadow: 0 0 60px rgba(255,170,40,.75); animation: pop .6s cubic-bezier(.2,1.4,.4,1);
+}
+.modal-box h2 { font-family: "Playfair Display", serif; color: var(--orange); font-size: 1.7rem; margin-bottom: 12px; }
+.modal-box p { font-size: 1.1rem; line-height: 1.7; }
+.modal-box .gu { font-family: "Playfair Display", serif; color: var(--orange); font-size: 1.4rem; margin: 10px 0 20px; }
+@keyframes pop { from { opacity: 0; transform: scale(.6); } }
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .diya.side { transform: translateY(-50%) scale(.55); }
+  .btn { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
